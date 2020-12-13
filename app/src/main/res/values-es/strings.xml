@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <string name="multiple">Selección multiple</string>
+    <string name="single">Selección única</string>
+    <string name="pick_brand">Selecciona una marca</string>
+    <string name="pick_brands">Selecciona las marcas</string>
+
+</resources>
