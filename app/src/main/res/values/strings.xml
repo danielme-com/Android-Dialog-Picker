@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="app_name">DialogFragment Picker</string>
+    <string name="app_name" translatable="false">DialogFragment Picker</string>
+
     <string name="multiple">Multiple choice</string>
     <string name="single">single choice</string>
     <string name="pick_brand">Pick a brand</string>
-    <string name="samsung">Samsung</string>
-    <string name="motorola">Motorola</string>
-    <string name="meizu">Meizu</string>
-    <string name="lg">LG</string>
-    <string name="htc">HTC</string>
     <string name="pick_brands">Pick brands</string>
+
+    <string name="samsung" translatable="false">Samsung</string>
+    <string name="motorola" translatable="false">Motorola</string>
+    <string name="meizu" translatable="false">Meizu</string>
+    <string name="lg" translatable="false">LG</string>
+    <string name="htc" translatable="false">HTC</string>
 
 </resources>

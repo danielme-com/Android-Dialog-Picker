@@ -5,11 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class MainActivity extends AppCompatActivity implements DialogPickerFragmentListener {
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements DialogPickerFragm
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         textView = findViewById(R.id.textView);
 
@@ -47,20 +46,16 @@ public class MainActivity extends AppCompatActivity implements DialogPickerFragm
     }
 
     private void setupButtons() {
-        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogSinglePickerFragment dialogFragment = DialogSinglePickerFragment.newInstance(4, brands, getString(R.string.pick_brand));
-                dialogFragment.show(getSupportFragmentManager(), DialogSinglePickerFragment.class.getSimpleName());
-            }
+        findViewById(R.id.button1).setOnClickListener(v -> {
+            DialogSinglePickerFragment dialogFragment =
+                    DialogSinglePickerFragment.newInstance(4, brands, getString(R.string.pick_brand));
+            dialogFragment.show(getSupportFragmentManager(), DialogSinglePickerFragment.class.getSimpleName());
         });
 
-        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogMultiplePickerFragment dialogFragment = DialogMultiplePickerFragment.newInstance(brands, getString(R.string.pick_brands), 0, 3);
-                dialogFragment.show(getSupportFragmentManager(), DialogMultiplePickerFragment.class.getSimpleName());
-            }
+        findViewById(R.id.button2).setOnClickListener(v -> {
+            DialogMultiplePickerFragment dialogFragment =
+                    DialogMultiplePickerFragment.newInstance(brands, getString(R.string.pick_brands), 0, 3);
+            dialogFragment.show(getSupportFragmentManager(), DialogMultiplePickerFragment.class.getSimpleName());
         });
     }
 

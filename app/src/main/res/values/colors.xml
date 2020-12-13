@@ -2,5 +2,8 @@
 <resources>
     <item name="primary" type="color">#9a28a1</item>
     <item name="primaryDark" type="color">#5c1760</item>
-    <color name="dialogColorAccent">#d21b59</color>
+    <color name="colorSecondary">#d21b59</color>
+
+    <color name="colorButton">#1565c0</color>
+    <color name="colorChecked">#64b5f6</color>
 </resources>

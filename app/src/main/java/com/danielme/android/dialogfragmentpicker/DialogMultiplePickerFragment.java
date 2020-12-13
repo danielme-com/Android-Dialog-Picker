@@ -1,13 +1,14 @@
 package com.danielme.android.dialogfragmentpicker;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatDialogFragment;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class DialogMultiplePickerFragment extends AppCompatDialogFragment {
 
@@ -34,6 +35,7 @@ public class DialogMultiplePickerFragment extends AppCompatDialogFragment {
     }
 
     @Override
+    @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final CharSequence[] brands = getArguments().getStringArray(ARG_ITEMS);
 
@@ -47,40 +49,27 @@ public class DialogMultiplePickerFragment extends AppCompatDialogFragment {
             }
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        builder.setTitle(getArguments().getString(ARG_TITLE)).setMultiChoiceItems(brands, selected,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        selected[which] = isChecked;
-                    }
-                })
+       return new MaterialAlertDialogBuilder(getContext()).setTitle(getArguments().getString(ARG_TITLE)).setMultiChoiceItems(brands, selected,
+                (dialog, which, isChecked) -> selected[which] = isChecked)
                 .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        StringBuilder sb = new StringBuilder();
-                        for (int i = 0; i < selected.length; i++) {
-                            if (selected[i]) {
-                                sb.append(brands[i]).append(" ");
-                            }
+                .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < selected.length; i++) {
+                        if (selected[i]) {
+                            sb.append(brands[i]).append(" ");
                         }
-
-                        //Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent();
-                        intent.setAction(BROADCAST_MULTIPICK);
-                        intent.putExtra(SELECTION, sb.toString());
-                        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
                     }
 
-                });
-
-        return builder.create();
+                    //Toast.makeText(getContext(), sb.toString(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setAction(BROADCAST_MULTIPICK);
+                    intent.putExtra(SELECTION, sb.toString());
+                    LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
+                }).create();
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBooleanArray(STATE_SELECTED, selected);
     }
